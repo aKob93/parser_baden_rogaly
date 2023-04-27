@@ -189,15 +189,15 @@ p.read_file()
 p.get_article_number()
 print(p.article_numbers)
 print(len(p.article_numbers))
-# asyncio.run(p.get_link_product_from_first_site_run_async())
-# p.remove_found_articles()
-# print(p.links_products)
-# print(len(p.article_numbers))
-# asyncio.run(p.get_link_product_from_second_site_run_async())
-# p.remove_found_articles()
-# print(p.links_products)
-# print(len(p.links_products))
-# TODO делать третий сайт и разобраться с занесением найденных артикулов
+asyncio.run(p.get_link_product_from_first_site_run_async())
+p.remove_found_articles()
+print(len(p.article_numbers))
+asyncio.run(p.get_link_product_from_second_site_run_async())
+p.remove_found_articles()
+print(p.links_products)
+print(len(p.links_products))
+print(len(p.article_numbers))
+# TODO делать третий сайт
 zz = {'AA038-011': 'https://baden-shop.ru/159122/', 'AA059-011': 'https://baden-shop.ru/158339/',
       'C255-030': 'https://baden-shop.ru/147953/', 'C675-020': 'https://baden-shop.ru/147957/',
       'C675-010': 'https://baden-shop.ru/147956/', 'C677-020': 'https://baden-shop.ru/147958/',
