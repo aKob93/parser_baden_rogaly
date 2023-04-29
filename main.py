@@ -126,7 +126,7 @@ class Parser:
                            f'Ошибка {exc} в получении ссылок на товары, функция - get_link_product()\n')
 
     async def get_link_product_from_first_site_run_async(self):
-        connector = aiohttp.TCPConnector(force_close=True)
+        connector = aiohttp.TCPConnector(force_close=True, limit_per_host=5)
         async with aiohttp.ClientSession(headers=self.headers, connector=connector) as session:
             tasks = []
             for article in self.article_numbers:
@@ -170,7 +170,7 @@ class Parser:
                            f'Ошибка {exc} в получении ссылок на товары, функция - get_link_product()\n')
 
     async def get_link_product_from_second_site_run_async(self):
-        connector = aiohttp.TCPConnector(force_close=True)
+        connector = aiohttp.TCPConnector(force_close=True, limit_per_host=5)
         async with aiohttp.ClientSession(headers=self.headers, connector=connector) as session:
             tasks = []
             for article in self.article_numbers:
@@ -216,7 +216,7 @@ class Parser:
                            f'Ошибка {exc} в получении ссылок на товары, функция - get_link_product()\n')
 
     async def get_link_product_from_third_site_run_async(self):
-        connector = aiohttp.TCPConnector(force_close=True)
+        connector = aiohttp.TCPConnector(force_close=True, limit_per_host=5)
         async with aiohttp.ClientSession(headers=self.headers, connector=connector) as session:
             tasks = []
             for article in self.article_numbers:
@@ -260,7 +260,7 @@ class Parser:
                            f'Ошибка {exc} в получении ссылок на товары, функция - get_link_product()\n')
 
     async def get_link_product_from_fourth_site_run_async(self):
-        connector = aiohttp.TCPConnector(force_close=True)
+        connector = aiohttp.TCPConnector(force_close=True, limit_per_host=5)
         async with aiohttp.ClientSession(headers=self.headers, connector=connector) as session:
             tasks = []
             for article in self.article_numbers:
@@ -472,7 +472,7 @@ class Parser:
     def run(self):
         try:
             # для винды
-            # asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+            asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
             print('Начало работы')
             self.open_token_file()
             self.read_file()
@@ -484,13 +484,13 @@ class Parser:
             print('Поиск на первом сайте')
             asyncio.run(self.get_link_product_from_first_site_run_async())
             self.remove_found_articles()
-            print('Поиск на втором сайте')
+            print('\nПоиск на втором сайте')
             asyncio.run(self.get_link_product_from_second_site_run_async())
             self.remove_found_articles()
-            print('Поиск на третьем сайте')
+            print('\nПоиск на третьем сайте')
             asyncio.run(self.get_link_product_from_third_site_run_async())
             self.remove_found_articles()
-            print('Поиск на четвёртом сайте')
+            print('\nПоиск на четвёртом сайте')
             asyncio.run(self.get_link_product_from_fourth_site_run_async())
             self.remove_found_articles()
             print('\nСсылки получены')
@@ -516,7 +516,6 @@ class Parser:
             print('Работа завершена')
             print('Для выхода нажмите Enter')
             input()
-            shutil.rmtree('./img/')
             print('---------------------------\n')
         except Exception as exc:
             print(f'Произошла ошибка {exc}')
